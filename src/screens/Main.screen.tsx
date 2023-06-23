@@ -1,5 +1,7 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { View , Text } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./Home.screen";
+import Detail from "./Detail.screen";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
@@ -8,8 +10,12 @@ const Main = () => {
     return(
         <Stack.Navigator
             initialRouteName="main"
+            screenOptions={{
+                headerShown:false,
+            }}            
         >
-            <Stack.Screen name="main" component={<View><Text>HolaMundo</Text></View> as JSX.Element}/>
+            <Stack.Screen name="HomeScreen" component={Home}/>
+            <Stack.Screen name="DetailScreen" component={Detail}/>
         </Stack.Navigator>
     )
 
