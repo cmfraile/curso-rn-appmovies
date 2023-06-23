@@ -9,7 +9,7 @@ const Main = () => {
         <Stack.Navigator
             initialRouteName="main"
         >
-            <Stack.Screen name="main" component={() => (<View><Text>HolaMundo</Text></View>)}/>
+            <Stack.Screen name="main" component={<View><Text>HolaMundo</Text></View> as JSX.Element}/>
         </Stack.Navigator>
     )
 
