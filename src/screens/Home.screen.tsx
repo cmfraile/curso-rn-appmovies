@@ -1,16 +1,13 @@
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import moviesApi from "../store/moviesSlice";
-import { useEffect } from "react";
+import { useNowPlayingQuery } from "../store/moviesSlice";
 
 const Home = () => {
 
-    const data = moviesApi.useNowPlayingQuery();
-
-    useEffect(() => console.log(JSON.stringify(data).substring(0,1000)),[data])
+    const { isLoading , data } = useNowPlayingQuery();
 
     return(
-        <SafeAreaView>
+        <SafeAreaView style={{flex:1,justifyContent:'center',alignItems:'center'}}>
             <Text>HOME WORKS</Text>
         </SafeAreaView>
     )

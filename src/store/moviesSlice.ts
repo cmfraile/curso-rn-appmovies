@@ -25,4 +25,6 @@ const moviesApi = createApi({
     })
 });
 
-export default moviesApi
+const { useNowPlayingQuery } = moviesApi;
+
+export { moviesApi , useNowPlayingQuery }

@@ -1,6 +1,6 @@
 import { useDispatch , TypedUseSelectorHook , useSelector } from 'react-redux';
 import { configureStore } from "@reduxjs/toolkit";
-import moviesApi from './moviesSlice';
+import { moviesApi } from './moviesSlice';
 
 const store = configureStore({
   reducer:{
