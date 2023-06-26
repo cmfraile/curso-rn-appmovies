@@ -2,19 +2,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Home.screen";
 import Detail from "./Detail.screen";
 
-const Stack = createNativeStackNavigator();
+export type stackParams = { Home:undefined , Detail:undefined } ;
+const Stack = createNativeStackNavigator<stackParams>();
 
 const Main = () => {
 
     return(
         <Stack.Navigator
-            initialRouteName="main"
+            initialRouteName="Home"
             screenOptions={{
                 headerShown:false,
             }}            
         >
-            <Stack.Screen name="HomeScreen" component={Home}/>
-            <Stack.Screen name="DetailScreen" component={Detail}/>
+            <Stack.Screen name="Home" component={Home}/>
+            <Stack.Screen name="Detail" component={Detail}/>
         </Stack.Navigator>
     )
 

@@ -1,10 +1,10 @@
-import { ActivityIndicator, ScrollView, Text, TurboModuleRegistry } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { useNowPlayingQuery , usePopularQuery , useUpcomingQuery } from "../store/moviesSlice";
-import { useAppSelector } from "../store/store";
 import Carousel from "../components/carousel.component";
 import { View } from "react-native";
-import { useEffect } from "react";
+import { stackParams } from "./Main.screen";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
 
@@ -12,9 +12,11 @@ const Home = () => {
     const { isLoading:usePopularQueryLoading , data:PopularData } = usePopularQuery() ;
     const { isLoading:useUpcomingLoading , data:UpcomingData } = useUpcomingQuery() ;
 
+    const isAllLoaded = () => (nowPlayingData && usePopularQueryLoading && useUpcomingLoading) ;
+
     return(
         <ScrollView style={{flex:1}}>
-            {( nowPlayingLoading && usePopularQueryLoading && useUpcomingLoading ) ? <ActivityIndicator size={'large'} color={'red'}/>
+            {isAllLoaded() ? <ActivityIndicator size={'large'} color={'red'}/>
             :
                 <View style={{flex:1}}>
                     <Carousel isMain={true}     movieArray={nowPlayingData||[]}   title={'en cartelera'}/>

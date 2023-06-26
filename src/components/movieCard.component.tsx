@@ -2,13 +2,19 @@ import { Result as movie } from "../interfaces/NowPlaying";
 import { TouchableOpacity , Image } from "react-native";
 import { useAppDispatch } from "../store/store";
 import { moviesSlice } from "../store/moviesSlice";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { stackParams } from "../screens/Main.screen";
 
-const Movie = ({movie,isMain}:{movie:movie,isMain:boolean}) => {
+//interface props extends StackScreenProps<any,any>{};
+
+
+const Movie = ({movie,isMain,navigate}:{movie:movie,isMain:boolean,navigate:() => void}) => {
 
     const dispatch = useAppDispatch();
-    const press = () => dispatch(moviesSlice.actions.setMovie(movie));
+    const press = () => { dispatch(moviesSlice.actions.setMovie(movie)) ; navigate()  }
 
-    const { id , poster_path } = movie
+    const { poster_path } = movie
 
     return(
         <TouchableOpacity onPress={press} style={{flex:1,marginHorizontal:(isMain) ? 10 : 5}}>
