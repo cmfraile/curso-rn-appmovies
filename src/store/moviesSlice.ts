@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Result as movie } from "../interfaces/NowPlaying";
 
@@ -6,7 +6,11 @@ const token:string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MGUzMWY5MjQ4ZmE5M2FkZmM2M
 
 //https://api.themoviedb.org/3/movie/now_playing?language=es-ES
 
-const defaultQueryParams = (url:string) => `${url}?language=es-ES`
+const defaultQueryParams = (url:string) => `${url}?language=es-ES`;
+
+const moviesSlice = createSlice({name:'movie',initialState:{} as movie,reducers:{
+    setMovie:(state:movie,{payload}:PayloadAction<movie>) => ({...payload}),
+}})
 
 const moviesApi = createApi({
     reducerPath:'movies',
@@ -18,13 +22,30 @@ const moviesApi = createApi({
         },
     }),
     endpoints:(builder) => ({
+
+        //HOME
         nowPlaying:builder.query<movie[],void>({
             query:() => ({url:defaultQueryParams('/now_playing')}),
             transformResponse: ({results}:any) => results,
-        })
+        }),
+        popular:builder.query<movie[],void>({
+            query:() => ({url:defaultQueryParams('/popular')}),
+            transformResponse: ({results}:any) => results,
+        }),
+        upcoming:builder.query<movie[],void>({
+            query:() => ({url:defaultQueryParams('/upcoming')}),
+            transformResponse: ({results}:any) => results,
+        }),
+
+        
+
     })
 });
 
-const { useNowPlayingQuery } = moviesApi;
+const { 
+    useNowPlayingQuery , 
+    usePopularQuery , 
+    useUpcomingQuery 
+} = moviesApi;
 
-export { moviesApi , useNowPlayingQuery }
+export { moviesApi , useNowPlayingQuery , usePopularQuery , useUpcomingQuery , moviesSlice }
