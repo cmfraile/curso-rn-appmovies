@@ -24,7 +24,7 @@ const thisStyleSheet = (width:number,height:number,isMain:boolean) => StyleSheet
 })
 
 
-interface props extends NativeStackNavigationProp<stackParams>{title?:string,isMain:boolean,movieArray:movie[]}
+interface props {title?:string,isMain:boolean,movieArray:movie[],navigate:() => void}
 const Carousel = ({title,isMain,movieArray,navigate}:props) => {
 
     const { width , height } = Dimensions.get('screen')
@@ -35,7 +35,7 @@ const Carousel = ({title,isMain,movieArray,navigate}:props) => {
         { (title) && <Text style={text}>{title}</Text> }
             <CarouselComponent
                 data={movieArray}
-                renderItem={({item}) => <Movie movie={item} isMain={isMain} navigate={() => navigate('Detail')}/>}
+                renderItem={({item}) => <Movie movie={item} isMain={isMain} navigate={navigate}/>}
                 sliderWidth={width}
                 itemWidth={(isMain) ? width * main : width * notMain}
                 inactiveSlideOpacity={0.2}
