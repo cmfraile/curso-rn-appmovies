@@ -2,9 +2,6 @@ import { ActivityIndicator, ScrollView } from "react-native";
 import { useNowPlayingQuery , usePopularQuery , useUpcomingQuery } from "../store/moviesSlice";
 import Carousel from "../components/carousel.component";
 import { View } from "react-native";
-import { stackParams } from "./Main.screen";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
 
@@ -12,7 +9,7 @@ const Home = () => {
     const { isLoading:usePopularQueryLoading , data:PopularData } = usePopularQuery() ;
     const { isLoading:useUpcomingLoading , data:UpcomingData } = useUpcomingQuery() ;
 
-    const isAllLoaded = () => (nowPlayingData && usePopularQueryLoading && useUpcomingLoading) ;
+    const isAllLoaded = () => (nowPlayingLoading && usePopularQueryLoading && useUpcomingLoading) ;
 
     return(
         <ScrollView style={{flex:1}}>

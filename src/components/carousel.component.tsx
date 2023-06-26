@@ -4,6 +4,8 @@ import { Text } from "react-native";
 import Movie from "./movieCard.component";
 import { default as CarouselComponent } from "react-native-snap-carousel";
 import { Dimensions } from "react-native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { stackParams } from "../screens/Main.screen";
 
 //https://image.tmdb.org/t/p/w300/
 
@@ -22,7 +24,8 @@ const thisStyleSheet = (width:number,height:number,isMain:boolean) => StyleSheet
 })
 
 
-const Carousel = ({title,isMain,movieArray}:{title?:string,isMain:boolean,movieArray:movie[]}) => {
+interface props extends NativeStackNavigationProp<stackParams>{title?:string,isMain:boolean,movieArray:movie[]}
+const Carousel = ({title,isMain,movieArray,navigate}:props) => {
 
     const { width , height } = Dimensions.get('screen')
     const { carousel , text } = thisStyleSheet(width,height,isMain);
@@ -32,7 +35,7 @@ const Carousel = ({title,isMain,movieArray}:{title?:string,isMain:boolean,movieA
         { (title) && <Text style={text}>{title}</Text> }
             <CarouselComponent
                 data={movieArray}
-                renderItem={({item}) => <Movie movie={item} isMain={isMain}/>}
+                renderItem={({item}) => <Movie movie={item} isMain={isMain} navigate={() => navigate('Detail')}/>}
                 sliderWidth={width}
                 itemWidth={(isMain) ? width * main : width * notMain}
                 inactiveSlideOpacity={0.2}
