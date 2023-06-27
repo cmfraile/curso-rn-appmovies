@@ -7,6 +7,7 @@ const token:string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MGUzMWY5MjQ4ZmE5M2FkZmM2M
 //https://api.themoviedb.org/3/movie/now_playing?language=es-ES
 
 const defaultQueryParams = (url:string) => `${url}?language=es-ES`;
+const movieTransformResponse = ({results}:{results:movie[]}) => { return results.map(x => ({...x,poster_path:`https://image.tmdb.org/t/p/w300/${x.poster_path}`})) } ;
 
 const moviesSlice = createSlice({name:'movie',initialState:{} as movie,reducers:{
     setMovie:(state:movie,{payload}:PayloadAction<movie>) => ({...payload}),
@@ -26,13 +27,19 @@ const moviesApi = createApi({
         //HOME
         nowPlaying:builder.query<movie[],void>({
             query:() => ({url:defaultQueryParams('/now_playing')}),
-            transformResponse: ({results}:any) => results,
+            transformResponse:movieTransformResponse,
         }),
         popular:builder.query<movie[],void>({
             query:() => ({url:defaultQueryParams('/popular')}),
-            transformResponse: ({results}:any) => results,
+            transformResponse:movieTransformResponse,
         }),
         upcoming:builder.query<movie[],void>({
+            query:() => ({url:defaultQueryParams('/upcoming')}),
+            transformResponse:movieTransformResponse,
+        }),
+
+        //Staff:
+        staff:builder.query<movie[],void>({
             query:() => ({url:defaultQueryParams('/upcoming')}),
             transformResponse: ({results}:any) => results,
         }),
