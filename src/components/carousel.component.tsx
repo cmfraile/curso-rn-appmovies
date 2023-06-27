@@ -44,17 +44,6 @@ const Carousel = ({title,isMain,movieArray}:props) => {
         </View>
     )
 
-    /*
-    return(
-        <View style={{flex:1,flexDirection:'row',flexWrap:'nowrap'}}>
-            {(title) && <Text>{title}</Text>}
-            {movieArray.map( (x,i) => (<Movie movie={x} key={i}/>) )}
-        </View>
-    )
-    */
-
-
-
 }
 
 export default Carousel
